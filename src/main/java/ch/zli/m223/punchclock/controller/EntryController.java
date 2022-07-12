@@ -3,7 +3,9 @@ package ch.zli.m223.punchclock.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -37,5 +39,14 @@ public class EntryController {
     public Entry add(Entry entry) {
        return entryService.createEntry(entry);
     }
+
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void delete(Entry entry){
+        entryService.deleteEntry(entry);
+
+    }
+
 
 }
