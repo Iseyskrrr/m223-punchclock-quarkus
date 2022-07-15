@@ -5,18 +5,21 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Entry {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private LocalDateTime checkIn;
-
+    
     @Column(nullable = false)
     private LocalDateTime checkOut;
+  
+    @ManyToOne
+    @JoinColumn(name = "categoryId_Fs", nullable = true)
+    private Category category;
 
-    public Long getId() {
+      public Long getId() {
         return id;
     }
 
@@ -39,4 +42,6 @@ public class Entry {
     public void setCheckOut(LocalDateTime checkOut) {
         this.checkOut = checkOut;
     }
+
+    
 }

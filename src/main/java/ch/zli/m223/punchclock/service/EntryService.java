@@ -1,5 +1,4 @@
 package ch.zli.m223.punchclock.service;
-
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -31,8 +30,15 @@ public class EntryService {
 
 
     @Transactional
-    public void deleteEntry(Entry entry){
-        entry = entityManager.find(Entry.class, entry.getId());
+    public void deleteEntry(long id){
+        var entry = entityManager.find(Entry.class, id);
         entityManager.remove(entry);
     }
+
+    @Transactional
+    public Entry update(Entry entry){
+        return entityManager.merge(entry);
+    }
+
+   
 }

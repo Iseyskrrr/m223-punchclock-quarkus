@@ -3,14 +3,13 @@ package ch.zli.m223.punchclock.controller;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.PATCH;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -36,23 +35,24 @@ public class EntryController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Add a new Entry", description = "The newly created entry is returned. The id may not be passed.")
     public Entry add(Entry entry) {
        return entryService.createEntry(entry);
     }
-
+    
     @DELETE
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void delete(Entry entry){
-        entryService.deleteEntry(entry);
+    public void delete(@PathParam("id") long id){
+        entryService.deleteEntry(id);
     }
 
     @PUT
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Entry update(Entry entry){
-        return entryService.editEntry(entry);
-         
+    @Operation(
+        summary = "update Entry",
+        description = "yb better"
+    )
+    public Entry update(Entry entry) {
+        return entryService.update(entry);
     }
 }
