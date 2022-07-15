@@ -12,17 +12,16 @@ import ch.zli.m223.punchclock.domain.Category;
 @ApplicationScoped
 public class CategoryService {
     @Inject
-    private EntityManager entityManager;
+    EntityManager entityManager;
     
     @Transactional 
-    public Category createCategory(Category category) {
+    public Category add(Category category) {
         entityManager.persist(category);
         return category;
     }
 
-    @SuppressWarnings("unchecked")
-    public List<Category> findAll() {
-        var query = entityManager.createQuery("FROM Category");
+    public List<Category> list() {
+        var query = entityManager.createQuery("FROM Category", Category.class);
         return query.getResultList();
     }
-}
+}   

@@ -24,4 +24,10 @@ public class UserService {
         var query = entityManager.createQuery("FROM User", User.class);
         return query.getResultList();
     }
+
+    public User getById(long id) {
+        var query = entityManager.createQuery("FROM User WHERE id=:id", User.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
+    }
 }

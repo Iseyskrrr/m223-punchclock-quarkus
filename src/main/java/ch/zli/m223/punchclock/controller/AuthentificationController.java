@@ -12,12 +12,16 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import ch.zli.m223.punchclock.domain.User;
 import ch.zli.m223.punchclock.service.AuthenticationService;
+import ch.zli.m223.punchclock.service.UserService;
 
 @Tag(name = "Authorization", description = "Sample to manage Authorization")
 @Path("/auth")
 public class AuthentificationController {
     @Inject
     AuthenticationService authenticationService; 
+
+    @Inject
+    UserService userService;
 
     @POST
     @Path("/login")
@@ -26,7 +30,8 @@ public class AuthentificationController {
     public String login(User user){
 
         if(authenticationService.checkIfUserExists(user)){
-            return authenticationService.generateValidJwtToken(user);
+            User authedUser = userService.getById(user.getId());
+            return authenticationService.generateValidJwtToken(authedUser);
         }
         else{
             throw new NotAuthorizedException("User ["+user.getUsername()+"] not known");

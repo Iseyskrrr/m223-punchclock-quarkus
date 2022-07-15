@@ -11,7 +11,7 @@ const dateAndTimeToDate = (dateString, timeString) => {
 const createEntry = (entry) => {
     fetch(`${URL}/entries`, {
         method: 'POST',
-        headers: {
+        headers: { 'Authorization': "Bearer " + localStorage.getItem("token"),
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(entry)
