@@ -2,6 +2,8 @@ package ch.zli.m223.punchclock.controller;
 
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -26,6 +28,7 @@ public class EntryController {
     EntryService entryService;
 
     @GET
+    @PermitAll
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "List all Entries", description = "")
     public List<Entry> list() {
@@ -33,6 +36,7 @@ public class EntryController {
     }
 
     @POST
+    @RolesAllowed({"user","admin"})
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Entry add(Entry entry) {
@@ -40,6 +44,7 @@ public class EntryController {
     }
     
     @DELETE
+    @RolesAllowed({"user","admin"})
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -48,6 +53,7 @@ public class EntryController {
     }
 
     @PUT
+    @RolesAllowed({"user","admin"})
     @Operation(
         summary = "update Entry",
         description = "yb better"

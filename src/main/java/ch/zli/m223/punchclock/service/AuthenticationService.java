@@ -24,18 +24,18 @@ public class AuthenticationService {
         query.setParameter("password", user.getPassword());
         var result = query.getSingleResult();
 
-        if((long)result == 1) 
+        if((long)result >= 1) 
         {
             return true;
         }
         return false;
     }
 
-    public String generateValidJwtToken(String username){
+    public String generateValidJwtToken(User user){
         String token =
             Jwt.issuer("https://zli.ch/issuer") 
-            .upn(username) 
-            .groups(new HashSet<>(Arrays.asList("User", "Admin"))) 
+            .upn(user.getPassword()) 
+            .groups(new HashSet<>(Arrays.asList(user.getRole()))) 
             .claim(Claims.birthdate.name(), "2001-07-13")
             .expiresIn(Duration.ofHours(1)) 
             .sign();

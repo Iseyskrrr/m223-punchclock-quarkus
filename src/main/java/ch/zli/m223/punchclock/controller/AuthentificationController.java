@@ -26,7 +26,7 @@ public class AuthentificationController {
     public String login(User user){
 
         if(authenticationService.checkIfUserExists(user)){
-            return authenticationService.generateValidJwtToken(user.getUsername());
+            return authenticationService.generateValidJwtToken(user);
         }
         else{
             throw new NotAuthorizedException("User ["+user.getUsername()+"] not known");
